@@ -5,6 +5,8 @@ class bank:
         self.balance = balance
         self.withdrawals = [datetime.now().date(), 0]
         self.statement = []
+        self.limit_per_draw = 500
+        self.limit_draw = 3
 
     def addTransaction(self, transaction):
         self.statement.append(transaction)
@@ -22,9 +24,9 @@ class bank:
         print(f"Deposito de R$: {amount} às {datetime.now()}")
     
     def withdraw(self, amount):
-        if amount <= self.balance and amount <= 500:
+        if amount <= self.balance and amount <= self.limit_per_draw:
             if self.withdrawals[0] == datetime.now().date():
-                if self.withdrawals[1] < 3:
+                if self.withdrawals[1] < self.limit_draw:
                     self.balance -= amount
                     trasaction = f"Saque de R$: {amount} às {datetime.now()}"
                     self.addTransaction(trasaction)
